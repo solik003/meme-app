@@ -1,11 +1,11 @@
+
 'use client';
 
-import React from 'react';
-import MemeCard from '@/components/MemeCard';
-import { Meme } from '@/types/meme';
+import MemeList from '@/components/MemeList';
 import { useRouter } from 'next/navigation';
 
-export default function MemeList() {
+
+export default function ListPage() {
     const router = useRouter();
 
     const handleBack = () => {
@@ -20,9 +20,8 @@ export default function MemeList() {
             >
                 &larr; Back
             </button>
-            <div className="grid grid-cols-1 justify-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
 
-            </div>
+            <MemeList />
         </div>
     );
 }
