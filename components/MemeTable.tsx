@@ -9,34 +9,17 @@ import {
     TableCell,
     Button,
 } from '@heroui/react';
-import { useState, useEffect } from 'react';
+import { Meme, Props } from '../types/meme';
 import EditModal from './EditModal';
-import { Meme } from '../types/meme';
+import { useState } from 'react';
+import { useMemes } from '@/hooks/useMemes';
 
-export default function MemeTable() {
-    const [memes, setMemes] = useState<Meme[]>([]);
+
+export default function MemeTable({ onUpdate }: Props) {
+    const { data: memes, isLoading, error } = useMemes();
     const [selectedMeme, setSelectedMeme] = useState<Meme | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
 
-    const fetchMemes = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const res = await fetch('http://localhost:3000/api/memes');
-            if (!res.ok) throw new Error('Failed to fetch memes');
-            const data = await res.json();
-            setMemes(data);
-        } catch (err) {
-            const message = err instanceof Error ? err.message : 'Something went wrong';
-            setError(message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const updateMeme = async (updated: Meme) => {
-        setError(null);
+    const handleUpdate = async (updated: Meme) => {
         try {
             const res = await fetch(`http://localhost:3000/api/memes/${updated.id}`, {
                 method: 'PUT',
@@ -46,28 +29,19 @@ export default function MemeTable() {
 
             if (!res.ok) throw new Error('Failed to update meme');
 
-            const updatedMemes = memes.map((m) =>
-                m.id === updated.id ? updated : m
-            );
-            setMemes(updatedMemes);
+            if (onUpdate) onUpdate(updated);
             setSelectedMeme(null);
         } catch (err) {
-            const message = err instanceof Error ? err.message : 'Something went wrong';
-            setError(message);
+            alert('Update failed');
         }
     };
 
-
-    useEffect(() => {
-        fetchMemes();
-    }, []);
-
-    if (loading) return <p>Loading memes...</p>;
+    if (isLoading) return <p>Loading memes...</p>;
+    if (error) return <p className="text-red-500">Error: {(error as Error).message}</p>;
+    if (!memes) return null;
 
     return (
         <>
-            {error && <p className="text-red-500">{error}</p>}
-
             <Table>
                 <TableHeader>
                     <TableColumn>ID</TableColumn>
@@ -76,15 +50,13 @@ export default function MemeTable() {
                     <TableColumn>Actions</TableColumn>
                 </TableHeader>
                 <TableBody>
-                    {memes.map((meme) => (
+                    {memes?.map?.((meme) => (
                         <TableRow key={meme.id}>
                             <TableCell>{meme.id}</TableCell>
                             <TableCell>{meme.name}</TableCell>
                             <TableCell>{meme.likes}</TableCell>
                             <TableCell>
-                                <Button onClick={() => setSelectedMeme(meme)}>
-                                    Edit
-                                </Button>
+                                <Button onClick={() => setSelectedMeme(meme)}>Edit</Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -95,7 +67,7 @@ export default function MemeTable() {
                 <EditModal
                     meme={selectedMeme}
                     onClose={() => setSelectedMeme(null)}
-                    onSave={updateMeme}
+                    onSave={handleUpdate}
                 />
             )}
         </>

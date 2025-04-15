@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 
+import type { Metadata } from "next";
+import "./globals.css";
+import QueryProvider from './QueryProvider';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -10,15 +10,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-
-      >
-        {children}
+      <body>
+        <QueryProvider>
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );
