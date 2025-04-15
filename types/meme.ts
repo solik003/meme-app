@@ -12,4 +12,8 @@ export interface EditModalProps {
 }
 export interface MemeCardProps {
     meme: Meme;
+    onClick: () => void;
 }
+export type Props = {
+    onUpdate?: (meme: Meme) => void;
+};
