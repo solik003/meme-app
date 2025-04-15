@@ -1,11 +1,11 @@
 
-import connectMongoDB from '@/libs/mongodb';
+import {connectMongoDB} from '@/libs/mongodb';
 import Meme from '@/models/Meme';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
   await connectMongoDB();
-  const memes = await Meme.find();
+  const memes = await Meme.find().skip(0).limit(10);
   return NextResponse.json(memes);
 }
 
