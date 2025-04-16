@@ -6,7 +6,7 @@ import { useMemes } from '@/hooks/useMemes';
 
 export default function MemeList() {
     const { data: memes, isLoading, error } = useMemes();
-    const [selectedMeme, setSelectedMeme] = useState<number | null>(null);
+    const [selectedMeme, setSelectedMeme] = useState<string>();
 
     if (isLoading) return <p>Loading memes...</p>;
     if (error) return <p className="text-red-500">Error: {(error as Error).message}</p>;
