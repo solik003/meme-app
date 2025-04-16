@@ -17,8 +17,8 @@ A full-stack web application built with Next.js, React, Tailwind CSS, and MongoD
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/your-username/your-project-name.git
-cd your-project-name
+git clone https://github.com/solik003/meme-app.git
+cd meme-app
 npm install
 
 This project uses environment variables to securely connect to MongoDB and other services.
@@ -30,20 +30,16 @@ On Railway:
 
     3. Add the required environment variables, for example:
 
-MONGODB_URI=your-mongo-db-connection-string
-NEXTAUTH_SECRET=your-auth-secret
 
 Locally:
 Create a .env.local file in the root of your project:
+MONGO_URL=your-mongo-db-connection-string
 
-MONGODB_URI=your-mongo-db-connection-string
-NEXTAUTH_SECRET=your-auth-secret
 
 Next.js automatically loads environment variables from .env.local.
 
 Run the app
-
-npm run dev       
+    npm run dev       
 
 Folder Structure
 
@@ -58,3 +54,6 @@ Folder Structure
 ├── table/          # Table components or logic
 ├── types/          # TypeScript types
 └── .env.local      # Local environment variables
+
+
+To trigger a deployment, simply push your changes to the main branch.
