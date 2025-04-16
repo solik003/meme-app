@@ -1,5 +1,5 @@
 
-import { Modal, Input, Button } from '@heroui/react';
+import { Input, Button } from '@heroui/react';
 import { EditModalProps, Meme } from '../types/meme';
 import { useUpdateMeme } from '@/hooks/useUpdateMeme';
 import { useForm } from 'react-hook-form';
@@ -20,30 +20,28 @@ export default function EditModal({ meme, onClose }: EditModalProps) {
     const onSubmit = (data: Meme) => {
         updateMeme(data, {
             onSuccess: () => {
-                console.log('Meme updated successfully');
                 alert('Meme updated!');
                 onClose();
             },
             onError: (err: any) => {
-                console.error('Error updating meme:', err);
                 alert(`Error updating meme: ${err.message}`);
             },
         });
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 sm:px-6">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="bg-white rounded-xl p-6 w-full max-w-md shadow-xl z-50"
+                className="bg-white rounded-xl p-4 sm:p-6 w-full max-w-sm sm:max-w-md md:max-w-lg shadow-xl z-50"
             >
-                <h2 className="text-xl font-bold mb-4">Edit Meme</h2>
+                <h2 className="text-lg sm:text-xl font-bold mb-4">Edit Meme</h2>
 
                 <Input
                     label="ID"
                     isReadOnly
                     value={String(meme.id)}
-                    className="mb-4"
+                    className="mb-4 bg-gray-100 text-gray-500 cursor-not-allowed"
                 />
 
                 <div className="mb-4">
@@ -102,9 +100,10 @@ export default function EditModal({ meme, onClose }: EditModalProps) {
                     {errors.likes && (
                         <p className="text-sm text-red-500 mt-1">{errors.likes.message}</p>
                     )}
+
                 </div>
 
-                <div className="flex justify-end space-x-2">
+                <div className="flex justify-end space-x-2 pt-2">
                     <Button onPress={onClose} variant="ghost" disabled={isPending}>
                         Cancel
                     </Button>
@@ -116,4 +115,3 @@ export default function EditModal({ meme, onClose }: EditModalProps) {
         </div>
     );
 }
-
