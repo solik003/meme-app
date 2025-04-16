@@ -7,7 +7,7 @@ export const useUpdateMeme = () => {
 
     return useMutation({
         mutationFn: async (updated: Meme) => {
-            const res = await fetch(`http://localhost:3000/api/memes/${updated.id}`, {
+            const res = await fetch(`/api/memes/${updated.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updated),
@@ -17,7 +17,7 @@ export const useUpdateMeme = () => {
             return res.json();
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['memes'] }); 
+            queryClient.invalidateQueries({ queryKey: ['memes'] });
         },
     });
 };
