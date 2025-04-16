@@ -2,9 +2,12 @@ import { connectMongoDB } from '@/libs/mongodb';
 import Meme from '@/models/Meme';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function PUT(req: NextRequest, context: { params: { id: string } }) {
+export async function PUT(
+    req: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) {
     try {
-        const { id } = context.params;
+        const id = (await params).id;
         const updatedData = await req.json();
 
         await connectMongoDB();
