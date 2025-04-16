@@ -40,20 +40,18 @@ export default function MemeTable({ onUpdate }: Props) {
 
     return (
         <>
-            <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+            <div className="overflow-x-auto max-h-[400px] overflow-y-auto rounded-xl border border-gray-200 shadow-sm">
                 <Table isStriped
                     removeWrapper
                     className="rounded-xl">
                     <TableHeader>
-                        <TableColumn className="text-gray-700 px-6 py-4">ID</TableColumn>
-                        <TableColumn className="text-gray-700 px-6 py-4">Name</TableColumn>
-                        <TableColumn className="text-gray-700 text-center px-6 py-4">Likes</TableColumn>
-                        <TableColumn className="text-gray-700 text-right px-6 py-4">Actions</TableColumn>
+                        <TableColumn className="sticky top-0 z-10 bg-white text-gray-700 text-left px-6 py-4">Name</TableColumn>
+                        <TableColumn className="sticky top-0 z-10 bg-white text-gray-700 text-center px-6 py-4">Likes</TableColumn>
+                        <TableColumn className="sticky top-0 z-10 bg-white text-gray-700 text-right px-6 py-4">Actions</TableColumn>
                     </TableHeader>
                     <TableBody>
                         {memes?.map?.((meme) => (
                             <TableRow key={meme.id} className="hover:bg-blue-50 transition duration-200">
-                                <TableCell className="text-gray-500 px-6 py-4">{meme.id}</TableCell>
                                 <TableCell className="font-medium text-gray-800 px-6 py-4">{meme.name}</TableCell>
                                 <TableCell className="text-center text-gray-800 px-6 py-4 font-semibold">{meme.likes}</TableCell>
                                 <TableCell className="text-right">
