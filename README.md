@@ -8,7 +8,7 @@ A full-stack web application built with Next.js, React, Tailwind CSS, and MongoD
 - [React](https://reactjs.org/) – Frontend Library
 - [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS Framework
 - [MongoDB](https://www.mongodb.com/) – NoSQL Database
-- [Heroicons](https://heroicons.com/) – Beautiful hand-crafted SVG icons
+- [HeroUI] 
 - [Railway](https://railway.app/) – Deployment platform
 - [react-hook-form](https://react-hook-form.com/) – Form handling library
 
