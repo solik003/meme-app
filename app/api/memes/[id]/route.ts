@@ -1,10 +1,10 @@
-import connectMongoDB from '@/libs/mongodb';
+import { connectMongoDB } from '@/libs/mongodb';
 import Meme from '@/models/Meme';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, context: { params: { id: string } }) {
     try {
-        const { id } = params;
+        const { id } = context.params;
         const updatedData = await req.json();
 
         await connectMongoDB();

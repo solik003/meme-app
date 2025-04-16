@@ -1,25 +1,52 @@
+
 import { Modal, Input, Button } from '@heroui/react';
 import { EditModalProps, Meme } from '../types/meme';
 import { useState } from 'react';
+import { useUpdateMeme } from '@/hooks/useUpdateMeme';
 
-export default function EditModal({ meme, onClose, onSave }: EditModalProps) {
+export default function EditModal({ meme, onClose }: EditModalProps) {
     const [name, setName] = useState(meme.name);
     const [image, setImage] = useState(meme.image);
     const [likes, setLikes] = useState(meme.likes);
+
+    const { mutate: updateMeme, isPending } = useUpdateMeme();
 
     const isValidUrl = (url: string) =>
         /^(https?:\/\/.*\.(?:jpg|jpeg))$/i.test(url);
 
     const handleSave = () => {
-        if (name.length < 3 || name.length > 100) return alert('Name must be 3-100 characters.');
-        if (!isValidUrl(image)) return alert('Image must be a valid JPG URL.');
-        if (likes < 0 || likes > 99) return alert('Likes must be between 0 and 99.');
+        if (name.length < 3 || name.length > 100) {
+            alert('Name must be 3-100 characters.');
+            return;
+        }
 
-        onSave({
+        if (!isValidUrl(image)) {
+            alert('Image must be a valid JPG URL.');
+            return;
+        }
+
+        if (likes < 0 || likes > 99) {
+            alert('Likes must be between 0 and 99.');
+            return;
+        }
+
+        const updatedMeme: Meme = {
             ...meme,
             name,
             image,
             likes,
+        };
+
+        updateMeme(updatedMeme, {
+            onSuccess: () => {
+                console.log('Meme updated successfully');
+                alert('Meme updated!');
+                onClose();
+            },
+            onError: (err: any) => {
+                console.error('Error updating meme:', err);
+                alert(`Error updating meme: ${err.message}`);
+            },
         });
     };
 
@@ -40,8 +67,12 @@ export default function EditModal({ meme, onClose, onSave }: EditModalProps) {
                     className="mb-4"
                 />
                 <div className="flex justify-end space-x-2">
-                    <Button onPress={onClose} variant="ghost">Cancel</Button>
-                    <Button onPress={handleSave}>Save</Button>
+                    <Button onPress={onClose} variant="ghost" disabled={isPending}>
+                        Cancel
+                    </Button>
+                    <Button onPress={handleSave} isLoading={isPending}>
+                        Save
+                    </Button>
                 </div>
             </div>
         </div>
