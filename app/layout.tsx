@@ -1,7 +1,8 @@
 
 import type { Metadata } from "next";
 import "./globals.css";
-import QueryProvider from './QueryProvider';
+import QueryProvider from "./QueryProvider";
+import { Navbar, NavbarContent, NavbarItem, Link } from "@heroui/react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,11 +16,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-white">
         <QueryProvider>
-          {children}
+          <Navbar className="bg-white/90 backdrop-blur-md text-gray-800 shadow-md border-b border-gray-200 px-6 py-4">
+            <NavbarContent className="flex justify-between items-center w-full max-w-7xl mx-auto">
+              <div className="flex space-x-8">
+                <NavbarItem className="hover:text-blue-600 transition-colors">
+                  <Link href="/list" className="text-lg font-semibold">
+                    List
+                  </Link>
+                </NavbarItem>
+                <NavbarItem className="hover:text-blue-600 transition-colors">
+                  <Link href="/table" className="text-lg font-semibold">
+                    Table
+                  </Link>
+                </NavbarItem>
+              </div>
+            </NavbarContent>
+          </Navbar>
+
+          <main className="flex-grow">{children}</main>
         </QueryProvider>
       </body>
     </html>
   );
 }
+
