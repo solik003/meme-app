@@ -38,9 +38,10 @@ export default function EditModal({ meme, onClose }: EditModalProps) {
                 <h2 className="text-lg sm:text-xl font-bold mb-4">Edit Meme</h2>
 
                 <Input
-                    label="ID"
+                    label="Id"
+                    {...register('_id')}
                     isReadOnly
-                    value={String(meme.id)}
+                    value={meme._id}
                     className="mb-4 bg-gray-100 text-gray-500 cursor-not-allowed"
                 />
 

@@ -16,9 +16,9 @@ export default function MemeList() {
             <div className="grid grid-cols-1 justify-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {memes?.map((meme) => (
                     <MemeCard
-                        key={meme.id}
+                        key={meme._id}
                         meme={meme}
-                        onClick={() => setSelectedMeme(meme.id)}
+                        onClick={() => setSelectedMeme(meme._id)}
                     />
                 ))}
             </div>

@@ -51,7 +51,7 @@ export default function MemeTable({ onUpdate }: Props) {
                     </TableHeader>
                     <TableBody>
                         {memes?.map?.((meme) => (
-                            <TableRow key={meme.id} className="hover:bg-blue-50 transition duration-200">
+                            <TableRow key={meme._id} className="hover:bg-blue-50 transition duration-200">
                                 <TableCell className="font-medium text-gray-800 px-6 py-4">{meme.name}</TableCell>
                                 <TableCell className="text-center text-gray-800 px-6 py-4 font-semibold">{meme.likes}</TableCell>
                                 <TableCell className="text-right">

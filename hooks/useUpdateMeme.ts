@@ -7,7 +7,7 @@ export const useUpdateMeme = () => {
 
     return useMutation({
         mutationFn: async (updated: Meme) => {
-            const res = await fetch(`/api/memes/${updated.id}`, {
+            const res = await fetch(`/api/memes/${updated._id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updated),
