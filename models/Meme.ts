@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema, Types, models } from 'mongoose';
 
 export interface IMeme extends Document {  
-    _id: string;
     name: string;
     image: string;
     likes: number;
