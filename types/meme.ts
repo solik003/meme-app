@@ -1,5 +1,5 @@
 export interface Meme {
-    id: number;
+    id: string;
     name: string;
     image: string;
     likes: number;
@@ -16,4 +16,4 @@ export interface MemeCardProps {
 }
 export type Props = {
     onUpdate?: (meme: Meme) => void;
-};
+}
